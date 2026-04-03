@@ -1,2 +1,2 @@
 # Assignments
-My assignments while going to school
+My assignments while going to university
