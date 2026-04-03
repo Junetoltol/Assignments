@@ -1,0 +1,28 @@
+#include <wiringPi.h>
+#include <stdio.h>
+
+#define PIR_PIN 2
+#define LED_PIN 7
+
+int main(void){
+        int pir,i;
+        if (wiringPiSetup() == -1)
+        return 1;
+        pinMode(PIR_PIN,INPUT);
+        pinMode(LED_PIN,OUTPUT);
+
+        for(i=0; i<200; i++){
+        pir = digitalRead(PIR_PIN);
+
+        if (pir == 1){
+        digitalWrite(LED_PIN,HIGH);
+        }
+        else{
+        digitalWrite(LED_PIN,LOW);
+        }
+
+        //printf("%d\n",pir);
+        delay(100);
+        }
+        return 0;
+}
