@@ -1,0 +1,23 @@
+# macOS and IDE metadata
+.DS_Store
+.idea/
+*.iml
+
+# Python caches and local environments
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# Java build outputs
+*.class
+
+# Secrets and local configuration
+.env
+.env.*
+!.env.example
+
+# Downloaded datasets and generated artifacts
+*.pkl
+*-images-idx*-ubyte.gz
+*-labels-idx*-ubyte.gz

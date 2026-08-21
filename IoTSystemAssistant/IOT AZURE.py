@@ -1,12 +1,19 @@
-import RPi.GPIO as GPIO
-import time
 import json
+import os
+import time
+
+import RPi.GPIO as GPIO
 from azure.iot.device import IoTHubDeviceClient, Message
 
 # ==========================================
 # Azure IoT Hub Connection String
 # ==========================================
-CONNECTION_STRING = ""
+CONNECTION_STRING = os.environ.get("AZURE_IOT_DEVICE_CONNECTION_STRING")
+
+if not CONNECTION_STRING:
+    raise RuntimeError(
+        "AZURE_IOT_DEVICE_CONNECTION_STRING environment variable is required."
+    )
 # ==========================================
 # GPIO Setup
 # ==========================================
@@ -18,15 +25,16 @@ GPIO.setup(VIBRATION_PIN, GPIO.IN)
 # ==========================================
 # Azure Client
 # ==========================================
-client = IoTHubDeviceClient.create_from_connection_string(CONNECTION_STRING)
-client.connect()
-
-print("Azure IoT Hub Connected")
-print("Monitoring vibration sensor...")
-
+client = None
 vibration_count = 0
 
 try:
+    client = IoTHubDeviceClient.create_from_connection_string(CONNECTION_STRING)
+    client.connect()
+
+    print("Azure IoT Hub Connected")
+    print("Monitoring vibration sensor...")
+
     while True:
         vibration = GPIO.input(VIBRATION_PIN)
 
@@ -56,5 +64,6 @@ except KeyboardInterrupt:
     print("Program stopped")
 
 finally:
-    client.disconnect()
+    if client is not None:
+        client.disconnect()
     GPIO.cleanup()
