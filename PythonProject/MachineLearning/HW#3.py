@@ -249,4 +249,4 @@ if __name__ == "__main__":
 
     w_sigmoid, b_sigmoid, epoch_sigmoid = train_sigmoid(X, D)
     print("\nSigmoid training finished at epoch:", epoch_sigmoid)
-    test_sigmoid(w_sigmoid, b_sigmoid)
+    test_sigmoid(w_sigmoid, b_sigmoid)pip3 install --break-system-packages RPLCD
